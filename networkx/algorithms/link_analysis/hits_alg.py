@@ -4,16 +4,18 @@ import networkx as nx
 
 __all__ = ["hits", "hits_numpy", "hits_scipy", "authority_matrix", "hub_matrix"]
 
-class HitsResult(tuple):
+
+class HitsResult (tuple):
     def __new__ (cls, hub_score, authority_score, analytics_info) -> tuple:
         return super().__new__(cls, (hub_score, authority_score))
-    
+
     def __init__(self, hub_score, authority_score, analytics_info) -> None:
-        self.hub_iterations=analytics_info['h']
-        self.authority_iterations=analytics_info['a']
+        self.hub_iterations = analytics_info['h']
+        self.authority_iterations = analytics_info['a']
         self.convergence = analytics_info['err']
         self.iterations = analytics_info['iterations']
-        self.return_message=analytics_info['return_message']
+        self.return_message = analytics_info['return_message']
+
 
 def hits(G, max_iter=100, tol=1.0e-8, nstart=None, normalized=True, analytics=False):
     """Returns HITS hubs and authorities values for nodes.
